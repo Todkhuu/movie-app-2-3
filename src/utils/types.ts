@@ -3,6 +3,13 @@ export type GenreType = {
   id: number;
 };
 
+export type MovieType = {
+  page: number;
+  results: ResultsType[];
+  total_pages: number;
+  total_results: number;
+};
+
 export type ResultsType = {
   adult: boolean;
   backdrop_path: string;
