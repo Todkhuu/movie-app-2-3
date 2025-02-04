@@ -10,16 +10,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Cast,
+  Crew,
+  OneMovie,
+  OneMovieGenre,
+  ResultsType,
+} from "@/utils/types";
+import { GoArrowRight } from "react-icons/go";
+import { Card, CardContent } from "@/components/ui/card";
 
 const MoviePage = async ({
-  params: { movieId },
+  params,
 }: {
-  params: { movieId: string };
+  params: Promise<{ movieId: string }>;
 }) => {
+  const { movieId } = await params;
   const movie = await getData(`/movie/${movieId}?language=en-US`);
   const trailer = await getData(`/movie/${movieId}/videos?language=en-US`);
+  const castCrew = await getData(`/movie/${movieId}/credits?language=en-US`);
+  const similarMovie = await getData(
+    `/movie/${movieId}/similar?language=en-US&page=1`
+  );
   console.log("movie", movie);
   console.log("trailer", trailer);
+  console.log("cast", castCrew);
+  console.log("similar", similarMovie);
   return (
     <div className="max-w-[1080px] m-auto mt-[52px]">
       <div className="flex justify-between">
@@ -66,7 +82,7 @@ const MoviePage = async ({
           className="w-[760px] h-[428px] rounded-sm bg-center bg-cover flex items-end p-[24px]"
         >
           <Dialog>
-            <DialogTrigger>
+            <DialogTrigger asChild>
               <div className="flex items-center gap-[12px]">
                 <Button
                   variant={"outline"}
@@ -79,8 +95,7 @@ const MoviePage = async ({
                 </DialogTitle>
               </div>
             </DialogTrigger>
-            <DialogContent className="w-[996px] h-[561px]">
-              <DialogTitle></DialogTitle>
+            <DialogContent className="max-w-[996px] h-[561px] p-0 overflow-hidden">
               <iframe
                 width="996"
                 height="561"
@@ -90,7 +105,81 @@ const MoviePage = async ({
           </Dialog>
         </div>
       </div>
-      <div></div>
+      <div>
+        {movie.genres.map((movie: OneMovieGenre, index: number) => (
+          <Button
+            key={index}
+            className="text-[12px] font-semibold h-[18px] px-[10px] bg-transparent border-[1px] text-secondary-foreground rounded-full mr-[12px] mt-[32px]"
+          >
+            {movie.name}
+          </Button>
+        ))}
+        <p className="mt-[20px]">{movie.overview}</p>
+      </div>
+      <div className="mt-[20px] flex flex-col gap-[20px]">
+        <div className="border-b-[1px] pb-[5px] flex">
+          <p className="w-[100px]">Director</p>
+          {castCrew.crew
+            .filter((crew: Crew) => crew.job.toLowerCase() === "director")
+            .map((director: Crew) => (
+              <p>{director.name}</p>
+            ))}
+        </div>
+        <div className="border-b-[1px] pb-[5px] flex">
+          <p className="w-[100px]">Writers</p>
+          {castCrew.crew
+            .filter((crew: Crew) => crew.job.toLowerCase().includes("writ"))
+            .map((writer: Crew) => (
+              <p>{writer.name}</p>
+            ))}
+        </div>
+        <div className="border-b-[1px] pb-[5px] flex">
+          <p className="w-[100px]">Stars</p>
+          <div className="flex">
+            {castCrew.cast.slice(0, 5).map((star: Cast) => {
+              return (
+                <p key={star.id} className="flex items-center">
+                  {star.name} <LuDot />
+                </p>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="flex justify-between items-center my-[36px]">
+          <h2>More like this</h2>
+          <Button className="text-[14px]" variant="link">
+            See more <GoArrowRight />
+          </Button>
+        </div>
+        <div className="flex justify-between">
+          {similarMovie.results.slice(0, 5).map((movie: ResultsType) => {
+            return (
+              <Card className="w-[190px] h-[372px] overflow-hidden bg-secondary">
+                <Image
+                  width={190}
+                  height={281}
+                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                  alt=""
+                />
+                <CardContent className="py-1 px-2">
+                  <div className="flex items-center gap-[4px] ">
+                    <FaStar className="w-[14px] h-[16px] fill-yellow-400" />
+                    <div className="text-[12px] font-medium">
+                      {movie.vote_average.toFixed(1)}
+                      <span className="text-[12px] font-normal text-[#71717a]">
+                        /10
+                      </span>
+                    </div>
+                  </div>
+                  <h3 className="text-[18px]">{movie.title}</h3>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
