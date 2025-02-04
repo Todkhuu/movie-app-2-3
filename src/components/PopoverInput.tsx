@@ -55,42 +55,46 @@ export const PopoverInput = () => {
         {movies?.length > 0
           ? movies?.slice(0, 5).map((movie: ResultsType, index: number) => {
               return (
-                <Card
+                <div
                   key={index}
-                  className="w-[553px] h-[116px] p-[8px] flex gap-[16px] hover:bg-secondary border-none shadow-none"
+                  className="border-b-[1px] border-[#e4e4e7] py-[8px]"
                 >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                    width={100}
-                    height={100}
-                    alt=""
-                    className="w-[67px] "
-                  />
-                  <CardContent className="w-[100%] p-0">
-                    <h2 className="text-[20px] font-semibold">{movie.title}</h2>
-                    <div className="flex items-center gap-[4px] ">
-                      <Star />
-                      <div className="text-[14px] font-medium mb-[4px]">
-                        {movie.vote_average.toFixed(1)}
-                        <span className="text-[12px] font-normal text-[#71717a]">
-                          /10
-                        </span>
+                  <Card className="w-[553px] h-[116px] p-[8px] flex gap-[16px] hover:bg-secondary border-none shadow-none">
+                    <Image
+                      src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                      width={100}
+                      height={100}
+                      alt=""
+                      className="w-[67px] rounded-[6px]"
+                    />
+                    <CardContent className="w-[100%] p-0">
+                      <h2 className="text-[20px] font-semibold">
+                        {movie.title}
+                      </h2>
+                      <div className="flex items-center gap-[4px] ">
+                        <Star />
+                        <div className="text-[14px] font-medium mb-[4px]">
+                          {movie.vote_average.toFixed(1)}
+                          <span className="text-[12px] font-normal text-[#71717a]">
+                            /10
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex justify-between">
-                      <p className="text-[14px]">
-                        {movie.release_date.slice(0, 4)}
-                      </p>
-                      <Button className="text-[14px]" variant="link">
-                        See more <GoArrowRight />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                      <div className="flex justify-between">
+                        <p className="text-[14px]">
+                          {movie.release_date.slice(0, 4)}
+                        </p>
+                        <Button className="text-[14px]" variant="link">
+                          See more <GoArrowRight />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               );
             })
           : "no results"}
-        <Link href={``} className="flex gap-2">
+        <Link href={``} className="flex gap-2 p-[16px]">
           <p>See all results for</p>
           {searchValue}
         </Link>

@@ -12,6 +12,7 @@ import Link from "next/link";
 
 export const Popovers = async () => {
   const dataGenre = await getData("/genre/movie/list?language=en");
+  console.log("genre", dataGenre);
   return (
     <Popover>
       <PopoverTrigger asChild>
