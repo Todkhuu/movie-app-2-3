@@ -74,3 +74,9 @@ export type Crew = {
   popularity: number;
   profile_path: string;
 };
+export type Search = {
+  page: number;
+  results: ResultsType[];
+  total_pages: number;
+  total_results: number;
+};

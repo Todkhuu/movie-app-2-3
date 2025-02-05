@@ -91,7 +91,10 @@ export const PopoverInput = () => {
               );
             })
           : ""}
-        <Link href={``} className="flex gap-2 p-[16px]">
+        <Link
+          href={`/search?value=${searchValue}`}
+          className="flex gap-2 p-[16px]"
+        >
           <p>See all results for</p>
           {searchValue}
         </Link>

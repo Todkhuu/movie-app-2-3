@@ -10,13 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Cast,
-  Crew,
-  OneMovie,
-  OneMovieGenre,
-  ResultsType,
-} from "@/utils/types";
+import { Cast, Crew, OneMovieGenre, ResultsType } from "@/utils/types";
 import { GoArrowRight } from "react-icons/go";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -99,7 +93,7 @@ const MoviePage = async ({
               <iframe
                 width="996"
                 height="561"
-                src={`https://www.youtube.com/embed/${trailer.results[0].key}`}
+                src={`https://www.youtube.com/embed/${trailer.results[0]?.key}`}
               ></iframe>
             </DialogContent>
           </Dialog>
@@ -109,7 +103,7 @@ const MoviePage = async ({
         {movie.genres.map((movie: OneMovieGenre, index: number) => (
           <Button
             key={index}
-            className="text-[12px] font-semibold h-[18px] px-[10px] bg-transparent border-[1px] text-secondary-foreground rounded-full mr-[12px] mt-[32px]"
+            className="text-[12px] font-semibold h-[18px] px-[10px] bg-transparent border-[1px] focus:text-secondary text-secondary-foreground rounded-full mr-[12px] mt-[32px]"
           >
             {movie.name}
           </Button>
@@ -121,22 +115,22 @@ const MoviePage = async ({
           <p className="w-[100px]">Director</p>
           {castCrew.crew
             .filter((crew: Crew) => crew.job.toLowerCase() === "director")
-            .map((director: Crew) => (
-              <p>{director.name}</p>
+            .map((director: Crew, index: number) => (
+              <p key={index}>{director.name}</p>
             ))}
         </div>
         <div className="border-b-[1px] pb-[5px] flex">
           <p className="w-[100px]">Writers</p>
           {castCrew.crew
             .filter((crew: Crew) => crew.job.toLowerCase().includes("writ"))
-            .map((writer: Crew) => (
-              <p>{writer.name}</p>
+            .map((writer: Crew, index: number) => (
+              <p key={index}>{writer.name}</p>
             ))}
         </div>
         <div className="border-b-[1px] pb-[5px] flex">
           <p className="w-[100px]">Stars</p>
           <div className="flex">
-            {castCrew.cast.slice(0, 5).map((star: Cast) => {
+            {castCrew.cast.slice(0, 5).map((star: Cast, index: number) => {
               return (
                 <p key={star.id} className="flex items-center">
                   {star.name} <LuDot />
@@ -148,36 +142,41 @@ const MoviePage = async ({
       </div>
       <div>
         <div className="flex justify-between items-center my-[36px]">
-          <h2>More like this</h2>
+          <h2 className="text-[24px] font-semibold">More like this</h2>
           <Button className="text-[14px]" variant="link">
             See more <GoArrowRight />
           </Button>
         </div>
         <div className="flex justify-between">
-          {similarMovie.results.slice(0, 5).map((movie: ResultsType) => {
-            return (
-              <Card className="w-[190px] h-[372px] overflow-hidden bg-secondary">
-                <Image
-                  width={190}
-                  height={281}
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                  alt=""
-                />
-                <CardContent className="py-1 px-2">
-                  <div className="flex items-center gap-[4px] ">
-                    <FaStar className="w-[14px] h-[16px] fill-yellow-400" />
-                    <div className="text-[12px] font-medium">
-                      {movie.vote_average.toFixed(1)}
-                      <span className="text-[12px] font-normal text-[#71717a]">
-                        /10
-                      </span>
+          {similarMovie.results
+            .slice(0, 5)
+            .map((movie: ResultsType, index: number) => {
+              return (
+                <Card
+                  key={index}
+                  className="w-[190px] h-[372px] overflow-hidden bg-secondary"
+                >
+                  <Image
+                    width={190}
+                    height={281}
+                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    alt=""
+                  />
+                  <CardContent className="py-1 px-2">
+                    <div className="flex items-center gap-[4px] ">
+                      <FaStar className="w-[14px] h-[16px] fill-yellow-400" />
+                      <div className="text-[14px] font-medium">
+                        {movie.vote_average.toFixed(1)}
+                        <span className="text-[12px] font-normal text-[#71717a]">
+                          /10
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <h3 className="text-[18px]">{movie.title}</h3>
-                </CardContent>
-              </Card>
-            );
-          })}
+                    <h3 className="text-[18px]">{movie.title}</h3>
+                  </CardContent>
+                </Card>
+              );
+            })}
         </div>
       </div>
     </div>
