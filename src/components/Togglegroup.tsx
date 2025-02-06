@@ -2,7 +2,6 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { getData } from "@/utils/data";
 import { GenreType } from "@/utils/types";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MdChevronRight } from "react-icons/md";
@@ -24,11 +23,13 @@ export const ToggleGroups = ({ set }: { set: boolean }) => {
     data();
   }, []);
 
-  const clickHandler = (genreIds: string[]) => {
+  const clickHandler = (genreId: string[]) => {
+    if (genreIds) {
+    }
     if (set) {
-      router.push(`/genre?page=${page}&genreIds=${genreIds}`);
+      router.push(`/genre?page=${page}&genreIds=${genreId}`);
     } else {
-      router.push(`?page=${page}&genreIds=${genreIds}&value=${value}`);
+      router.push(`?page=${page}&genreIds=${genreId}&value=${value}`);
     }
   };
 
@@ -40,6 +41,7 @@ export const ToggleGroups = ({ set }: { set: boolean }) => {
         type="multiple"
         className="flex gap-[16px] flex-wrap justify-start"
         onValueChange={clickHandler}
+        value={genreIds?.split(",")}
       >
         {genres?.map((genre: GenreType, index: number) => (
           <ToggleGroupItem
