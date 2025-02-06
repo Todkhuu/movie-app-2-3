@@ -80,3 +80,9 @@ export type Search = {
   total_pages: number;
   total_results: number;
 };
+export type SimilarType = {
+  page: number;
+  results: ResultsType[];
+  total_pages: number;
+  total_results: number;
+};

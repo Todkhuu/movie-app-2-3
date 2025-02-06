@@ -14,9 +14,9 @@ const SearchPage = () => {
   const [searchMovies, setSearchMovies] = useState<Search | null>(null);
   const [filtered, setFiltered] = useState<ResultsType[] | undefined>();
   const searchParams = useSearchParams();
-  const value = searchParams.get("value");
-  const page = searchParams.get("page") || 1;
-  const genreIds = searchParams.get("genreIds");
+  const value = searchParams.get("value") || "";
+  const page = (searchParams.get("page") || 1).toString();
+  const genreIds = searchParams.get("genreIds") || "";
 
   useEffect(() => {
     const getSearchData = async () => {
@@ -76,7 +76,7 @@ const SearchPage = () => {
               );
             })}
           </div>
-          <Paginations />
+          <Paginations page={page} ids={genreIds} value={value} />
         </div>
         <div className="max-w-[403px]">
           <ToggleGroups set={false} />

@@ -156,11 +156,8 @@ const MoviePage = async ({
             .slice(0, 5)
             .map((movie: ResultsType, index: number) => {
               return (
-                <Link href={`/movie-detail/${movie.id}`}>
-                  <Card
-                    key={index}
-                    className="w-[190px] h-[372px] overflow-hidden bg-secondary"
-                  >
+                <Link key={index} href={`/movie-detail/${movie.id}`}>
+                  <Card className="w-[190px] h-[372px] overflow-hidden bg-secondary">
                     <Image
                       width={190}
                       height={281}

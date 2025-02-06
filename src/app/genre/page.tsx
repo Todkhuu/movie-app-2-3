@@ -14,8 +14,9 @@ export default function GenrePage() {
   const [genres, setGenres] = useState<GenreType[] | null>(null);
   const [movies, setMovies] = useState<MovieType | null>(null);
   const searchParams = useSearchParams();
-  const genreIds = searchParams.get("genreIds");
-  const page = searchParams.get("page") || 1;
+  const genreIds = searchParams.get("genreIds") || "";
+  const page = (searchParams.get("page") || 1)?.toString();
+
   useEffect(() => {
     const data = async () => {
       const dataGenres = await getData("/genre/movie/list?language=en");
@@ -29,7 +30,7 @@ export default function GenrePage() {
       const dataMovie = await getData(
         `/discover/movie?language=en&with_genres=${genreIds}&page=${page}`
       );
-      setMovies(dataMovie || []);
+      setMovies(dataMovie);
     };
     data();
   }, [genreIds, page]);
@@ -77,7 +78,7 @@ export default function GenrePage() {
               </Link>
             ))}
           </div>
-          <Paginations />
+          <Paginations ids={genreIds} page={page} />
         </div>
       </div>
     </div>
