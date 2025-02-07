@@ -11,15 +11,18 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export const Paginations = ({ page }: { page?: string }) => {
-  const { replace } = useRouter();
-  const pages = Number(page) || 1;
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const { replace } = useRouter();
+
   const handleClick = (value: string) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", value);
     replace(`${pathname}?${params.toString()}`);
   };
+
+  const pages = Number(page) || 1;
+
   return (
     <Pagination className="my-[32px]">
       <PaginationContent>
