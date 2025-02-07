@@ -14,6 +14,7 @@ const SearchPage = () => {
   const [searchMovies, setSearchMovies] = useState<Search | null>(null);
   const [filtered, setFiltered] = useState<ResultsType[] | undefined>();
   const searchParams = useSearchParams();
+
   const value = searchParams.get("value") || "";
   const page = (searchParams.get("page") || 1).toString();
   const genreIds = searchParams.get("genreIds") || "";
@@ -36,9 +37,6 @@ const SearchPage = () => {
       : searchMovies?.results;
     setFiltered(filter);
   }, [searchMovies?.results, genreIds]);
-
-  console.log("search", searchMovies);
-  console.log("filter", filtered);
 
   return (
     <div className="max-w-[1280px] m-auto mt-[52px]">
@@ -76,7 +74,7 @@ const SearchPage = () => {
               );
             })}
           </div>
-          <Paginations page={page} ids={genreIds} value={value} />
+          <Paginations page={page} />
         </div>
         <div className="max-w-[403px]">
           <ToggleGroups set={false} />

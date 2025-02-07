@@ -11,7 +11,7 @@ export const ToggleGroups = ({ set }: { set: boolean }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const genreIds = searchParams.get("genreIds");
+  const genreIds = searchParams.get("genreIds") || null;
   const page = searchParams.get("page") || 1;
   const value = searchParams.get("value") || null;
 
@@ -24,15 +24,12 @@ export const ToggleGroups = ({ set }: { set: boolean }) => {
   }, []);
 
   const clickHandler = (genreId: string[]) => {
-    if (genreIds) {
-    }
     if (set) {
       router.push(`/genre?page=${page}&genreIds=${genreId}`);
     } else {
       router.push(`?page=${page}&genreIds=${genreId}&value=${value}`);
     }
   };
-
   return (
     <div className="w-full mr-[16px]">
       <h2 className="text-[24px] font-semibold">Genres</h2>

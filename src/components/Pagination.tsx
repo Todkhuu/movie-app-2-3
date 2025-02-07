@@ -8,19 +8,18 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export const Paginations = ({
-  page,
-  ids,
-  value,
-}: {
-  page?: string;
-  ids: string;
-  value?: string;
-}) => {
-  const router = useRouter();
+export const Paginations = ({ page }: { page?: string }) => {
+  const { replace } = useRouter();
   const pages = Number(page) || 1;
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const handleClick = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", value);
+    replace(`${pathname}?${params.toString()}`);
+  };
   return (
     <Pagination className="my-[32px]">
       <PaginationContent>
@@ -28,19 +27,19 @@ export const Paginations = ({
           <>
             <PaginationItem>
               <PaginationPrevious
-                onClick={() =>
-                  router.push(
-                    `?page=${pages - 1}&genreIds=${ids}&value=${value}`
-                  )
-                }
+                onClick={() => {
+                  handleClick((pages - 1).toString());
+                }}
               />
             </PaginationItem>
-            <PaginationItem
-              onClick={() =>
-                router.push(`?page=${pages - 1}&genreIds=${ids}&value=${value}`)
-              }
-            >
-              <PaginationLink>{pages - 1}</PaginationLink>
+            <PaginationItem>
+              <PaginationLink
+                onClick={() => {
+                  handleClick((pages - 1).toString());
+                }}
+              >
+                {pages - 1}
+              </PaginationLink>
             </PaginationItem>
           </>
         ) : (
@@ -49,12 +48,14 @@ export const Paginations = ({
         <PaginationItem>
           <PaginationLink isActive>{pages}</PaginationLink>
         </PaginationItem>
-        <PaginationItem
-          onClick={() =>
-            router.push(`?page=${pages + 1}&genreIds=${ids}&value=${value}`)
-          }
-        >
-          <PaginationLink>{pages + 1}</PaginationLink>
+        <PaginationItem>
+          <PaginationLink
+            onClick={() => {
+              handleClick((pages + 1).toString());
+            }}
+          >
+            {pages + 1}
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationEllipsis />
@@ -62,9 +63,9 @@ export const Paginations = ({
         {pages < 10 ? (
           <PaginationItem>
             <PaginationNext
-              onClick={() =>
-                router.push(`?page=${pages + 1}&genreIds=${ids}&value=${value}`)
-              }
+              onClick={() => {
+                handleClick((pages + 1).toString());
+              }}
             />
           </PaginationItem>
         ) : (

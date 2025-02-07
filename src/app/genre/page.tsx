@@ -4,7 +4,7 @@ import Star from "@/icons/StarIcon";
 import { getData } from "@/utils/data";
 import { GenreType, MovieType, ResultsType } from "@/utils/types";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ToggleGroups } from "@/components/Togglegroup";
@@ -14,6 +14,7 @@ export default function GenrePage() {
   const [genres, setGenres] = useState<GenreType[] | null>(null);
   const [movies, setMovies] = useState<MovieType | null>(null);
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const genreIds = searchParams.get("genreIds") || "";
   const page = (searchParams.get("page") || 1)?.toString();
 
@@ -78,7 +79,7 @@ export default function GenrePage() {
               </Link>
             ))}
           </div>
-          <Paginations ids={genreIds} page={page} />
+          <Paginations page={page} />
         </div>
       </div>
     </div>

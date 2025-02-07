@@ -131,7 +131,7 @@ const MoviePage = async ({
         <div className="border-b-[1px] pb-[5px] flex">
           <p className="w-[100px]">Stars</p>
           <div className="flex">
-            {castCrew.cast.slice(0, 5).map((star: Cast, index: number) => {
+            {castCrew.cast.slice(0, 5).map((star: Cast) => {
               return (
                 <p key={star.id} className="flex items-center">
                   {star.name} <LuDot />
@@ -143,7 +143,7 @@ const MoviePage = async ({
       </div>
       <div>
         <Link
-          href={`/category/${movieId}`}
+          href={`/similar?similarId=${movieId}`}
           className="flex justify-between items-center my-[36px]"
         >
           <h2 className="text-[24px] font-semibold">More like this</h2>
