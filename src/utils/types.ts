@@ -43,10 +43,14 @@ export type OneMovie = {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  runtime: number;
 };
 export type OneMovieGenre = {
   id: number;
   name: string;
+};
+export type Trailer = {
+  key: string;
 };
 export type Cast = {
   adult: boolean;
