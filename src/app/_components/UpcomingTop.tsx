@@ -46,7 +46,7 @@ export const UpcomingTop = () => {
                   }}
                   className="w-[100%] h-[600px] bg-center bg-cover rounded-none"
                 >
-                  <CardContent className="h-[100%] ml-[140px] flex flex-col justify-center p-0">
+                  <CardContent className="h-[100%] ml-[140px] flex flex-col justify-center p-0 text-white">
                     <p className="text-[16px]">Now Playing:</p>
                     <h2 className="text-[36px] font-bold leading-none">
                       {movie.title}

@@ -20,7 +20,7 @@ export const GenreCards = ({ movies }: { movies: MovieType | null }) => {
             <CardContent className="p-[6px]">
               <div className="flex items-center gap-[4px] ">
                 <Star />
-                <div className="text-[14px] font-medium mb-[4px]">
+                <div className="text-[14px] font-medium">
                   {movie.vote_average.toFixed(1)}
                   <span className="text-[12px] font-normal text-[#71717a]">
                     /10
