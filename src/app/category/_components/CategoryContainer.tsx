@@ -30,12 +30,14 @@ export const CategoryContainer = () => {
     <div className="max-w-[1280px] m-auto mt-[52px]">
       <h2 className="text-[30px] font-semibold">
         {category == "upcoming" ? "Upcoming" : ""}
+        {category == "popular" ? "Popular" : ""}
+        {category == "top_rated" ? "Top Rated" : ""}
       </h2>
       <div className="flex flex-wrap gap-[31px] mt-[32px]">
         {data?.map((movie: ResultsType) => {
           return (
             <Link key={movie.id} href={`/movie-detail/${movie.id}`}>
-              <Card className="w-[229px] h-[439px] overflow-hidden">
+              <Card className="w-[229px] h-[439px] overflow-hidden bg-secondary">
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
                   width={229}
