@@ -9,7 +9,7 @@ export const Cards = ({ data }: { data: ResultsType[] }) => {
     <div className="flex flex-wrap mt-[36px] gap-[31px]">
       {data?.slice(0, 10).map((movie) => {
         return (
-          <Link href={`/movie-detail/${movie.id}`}>
+          <Link key={movie.id} href={`/movie-detail/${movie.id}`}>
             <Card className="w-[229px] h-[439px] overflow-hidden bg-secondary">
               <Image
                 src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}

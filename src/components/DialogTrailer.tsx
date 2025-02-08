@@ -19,7 +19,7 @@ export const DialogDemo = ({ ids }: { ids: string }) => {
       setTrailer(trailer.results[0]);
     };
     fetchData();
-  }, []);
+  }, [ids]);
 
   return (
     <Dialog>
