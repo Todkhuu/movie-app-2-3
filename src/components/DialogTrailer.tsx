@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogContent,
@@ -7,13 +8,23 @@ import {
 import { Button } from "./ui/button";
 import { CiPlay1 } from "react-icons/ci";
 import { getData } from "@/utils/data";
+import { useEffect, useState } from "react";
+import { Trailer } from "@/utils/types";
 
-export const DialogDemo = async ({ id }: { id: string }) => {
-  const trailer = await getData(`/movie/${id}/videos?language=en-US`);
+export const DialogDemo = ({ ids }: { ids: string }) => {
+  const [trailer, setTrailer] = useState<Trailer>();
+  useEffect(() => {
+    const fetchData = async () => {
+      const trailer = await getData(`/movie/${ids}/videos?language=en-US`);
+      setTrailer(trailer.results[0]);
+    };
+    fetchData();
+  }, []);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="flex items-center gap-[12px]">
+        <div className="flex items-center gap-[12px] z-[100]">
           <Button
             variant={"outline"}
             className="w-[40px] h-[40px] rounded-full bg-secondary"
@@ -29,7 +40,7 @@ export const DialogDemo = async ({ id }: { id: string }) => {
         <iframe
           width="996"
           height="561"
-          src={`https://www.youtube.com/embed/${trailer.results[0]?.key}`}
+          src={`https://www.youtube.com/embed/${trailer?.key}`}
         ></iframe>
       </DialogContent>
     </Dialog>

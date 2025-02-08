@@ -24,7 +24,7 @@ export const MovieTrailer = ({
         }}
         className="w-[760px] h-[428px] rounded-sm bg-center bg-cover flex items-end p-[24px]"
       >
-        <DialogDemo id={id} />
+        <DialogDemo ids={id} />
       </div>
     </div>
   );

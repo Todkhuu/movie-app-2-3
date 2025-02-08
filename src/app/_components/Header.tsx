@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export const Header = () => {
   return (
-    <Card className="h-[59px] flex items-center sticky top-0 rounded-none ">
+    <Card className="h-[59px] flex items-center sticky top-0 rounded-none z-50">
       <div className="w-[1280px] h-[36px] m-auto flex justify-between items-center">
         <Link href="/" className="flex gap-2">
           <MovieLogo />
