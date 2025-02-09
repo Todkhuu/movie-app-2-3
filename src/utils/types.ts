@@ -52,6 +52,11 @@ export type OneMovieGenre = {
 export type Trailer = {
   key: string;
 };
+
+export type CastCrew = {
+  cast: [];
+  crew: [];
+};
 export type Cast = {
   adult: boolean;
   cast_id: number;

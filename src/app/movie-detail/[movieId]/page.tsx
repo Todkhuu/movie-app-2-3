@@ -19,8 +19,7 @@ const MoviePage = async ({
       <MovieTop movie={movie} />
       <MovieTrailer movie={movie} id={movieId} />
       <MovieGenres movie={movie} />
-      <p className="mt-[20px]">{movie.overview}</p>
-      <MovieCrews id={movieId} />
+      <MovieCrews id={movieId} movie={movie} />
       <MovieCards id={movieId} />
     </div>
   );
