@@ -15,11 +15,11 @@ export const MovieCrews = ({ id, movie }: { id: string; movie: OneMovie }) => {
       setCrews(castCrew);
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     setData(movie);
-  }, []);
+  }, [movie]);
 
   return (
     <>

@@ -9,7 +9,7 @@ export const MovieTop = ({ movie }: { movie: OneMovie }) => {
   const [data, setData] = useState<OneMovie>();
   useEffect(() => {
     setData(movie);
-  }, []);
+  }, [movie]);
   return (
     <>
       {data ? (

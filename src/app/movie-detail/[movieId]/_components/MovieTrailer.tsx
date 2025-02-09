@@ -1,7 +1,6 @@
 "use client";
 import { MovieTrailerSkeleton } from "@/app/skeletons/MovieDetailSkeleton";
 import { DialogDemo } from "@/components/DialogTrailer";
-import { Skeleton } from "@/components/ui/skeleton";
 import { OneMovie } from "@/utils/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -17,7 +16,7 @@ export const MovieTrailer = ({
 
   useEffect(() => {
     setData(movie);
-  }, []);
+  }, [movie]);
 
   return (
     <>

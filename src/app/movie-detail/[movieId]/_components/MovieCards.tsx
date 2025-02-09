@@ -21,7 +21,7 @@ export const MovieCards = ({ id }: { id: string }) => {
       setSimilar(similarMovie);
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   return (
     <>
