@@ -24,7 +24,7 @@ export const DialogDemo = ({ ids }: { ids: string }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="flex items-center gap-[12px] z-[100]">
+        <div className="flex items-center gap-[12px] z-10">
           <Button
             variant={"outline"}
             className="w-[40px] h-[40px] rounded-full bg-secondary"
